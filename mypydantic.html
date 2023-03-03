@@ -21,6 +21,14 @@
             <input type="search" placeholder="Search..." role="searchbox" aria-label="search"
                    pattern=".+" required>
 
+        <h2>Contents</h2>
+        <ul>
+  <li><a href="#mypydantic">mypydantic</a>
+  <ul>
+    <li><a href="#usage">Usage</a></li>
+  </ul></li>
+</ul>
+
 
         <h2>Submodules</h2>
         <ul>
@@ -44,8 +52,114 @@
                     <h1 class="modulename">
 mypydantic    </h1>
 
+                        <div class="docstring"><h1 id="mypydantic">mypydantic</h1>
 
+<p>mypy boto3 type definitions as pydantic models</p>
 
+<p>Code Documentation: <a href="https://jmgreg31.github.io/mypydantic.html">Link</a></p>
+
+<p>Huge thanks to the developers of mypy_boto3 and pydantic!</p>
+
+<p>mypy_boto3: <a href="https://mypy-boto3.readthedocs.io/en/latest/">Link</a></p>
+
+<p>pydantic: <a href="https://docs.pydantic.dev/">Link</a></p>
+
+<h2 id="usage">Usage</h2>
+
+<p>The following section provides some usage examples.</p>
+
+<h3 id="loading-a-request-model">Loading a Request Model</h3>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="kn">from</span> <span class="nn"><a href="mypydantic/models/wafv2.html">mypydantic.models.wafv2</a></span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">CreateWebACLRequestModel</span><span class="p">,</span>
+    <span class="n">DefaultActionModel</span><span class="p">,</span>
+    <span class="n">VisibilityConfigModel</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Scope&quot;</span><span class="p">:</span> <span class="s2">&quot;REGIONAL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DefaultAction&quot;</span><span class="p">:</span> <span class="n">DefaultActionModel</span><span class="p">(</span><span class="n">Allow</span><span class="o">=</span><span class="p">{}),</span>
+    <span class="s2">&quot;VisibilityConfig&quot;</span><span class="p">:</span> <span class="n">VisibilityConfigModel</span><span class="p">(</span>
+        <span class="n">SampledRequestsEnabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">CloudWatchMetricsEnabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">MetricName</span><span class="o">=</span><span class="s2">&quot;example-metric&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">}</span>
+<span class="n">create_web_acl_request</span> <span class="o">=</span> <span class="n">CreateWebACLRequestModel</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">create_web_acl_request</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">create_web_acl_request</span><span class="o">.</span><span class="n">scope</span><span class="p">)</span>
+<span class="o">...</span>
+</code></pre>
+</div>
+
+<h3 id="executing-a-boto3-request">Executing a Boto3 Request</h3>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="kn">from</span> <span class="nn"><a href="mypydantic/models/wafv2.html">mypydantic.models.wafv2</a></span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">CreateWebACLRequestModel</span><span class="p">,</span>
+    <span class="n">DefaultActionModel</span><span class="p">,</span>
+    <span class="n">VisibilityConfigModel</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">mypy_boto3_wafv2.client</span> <span class="kn">import</span> <span class="n">WAFV2Client</span>
+
+<span class="n">client</span><span class="p">:</span> <span class="n">WAFV2Client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;wafv2&quot;</span><span class="p">,</span> <span class="n">aws_region</span><span class="o">=</span><span class="s2">&quot;us-east-1&quot;</span><span class="p">)</span>
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Scope&quot;</span><span class="p">:</span> <span class="s2">&quot;REGIONAL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DefaultAction&quot;</span><span class="p">:</span> <span class="n">DefaultActionModel</span><span class="p">(</span><span class="n">Allow</span><span class="o">=</span><span class="p">{}),</span>
+    <span class="s2">&quot;VisibilityConfig&quot;</span><span class="p">:</span> <span class="n">VisibilityConfigModel</span><span class="p">(</span>
+        <span class="n">SampledRequestsEnabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">CloudWatchMetricsEnabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">MetricName</span><span class="o">=</span><span class="s2">&quot;example-metric&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">}</span>
+<span class="n">create_web_acl_request</span> <span class="o">=</span> <span class="n">CreateWebACLRequestModel</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">)</span>
+
+<span class="c1"># Using the &#39;by_alias&#39; option retains the expected AWS request key casing</span>
+<span class="n">client</span><span class="o">.</span><span class="n">create_web_acl</span><span class="p">(</span><span class="o">**</span><span class="n">create_web_acl_request</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">by_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre>
+</div>
+
+<h3 id="loading-a-response-model">Loading a Response Model</h3>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="kn">from</span> <span class="nn"><a href="mypydantic/models/wafv2.html">mypydantic.models.wafv2</a></span> <span class="kn">import</span> <span class="n">CreateWebACLResponseModel</span>
+<span class="kn">from</span> <span class="nn">mypy_boto3_wafv2.client</span> <span class="kn">import</span> <span class="n">WAFV2Client</span>
+
+<span class="n">client</span><span class="p">:</span> <span class="n">WAFV2Client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;wafv2&quot;</span><span class="p">,</span> <span class="n">aws_region</span><span class="o">=</span><span class="s2">&quot;us-east-1&quot;</span><span class="p">)</span>
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Scope&quot;</span><span class="p">:</span> <span class="s2">&quot;REGIONAL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DefaultAction&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;Allow&quot;</span><span class="p">:</span> <span class="p">{}},</span>
+    <span class="s2">&quot;VisibilityConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;SampledRequestsEnabled&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;CloudWatchMetricsEnabled&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;MetricName&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="n">create_web_acl_response</span> <span class="o">=</span> <span class="n">CreateWebACLResponseModel</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">create_web_acl</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">))</span>
+<span class="n">web_acl</span> <span class="o">=</span> <span class="n">create_web_acl_response</span><span class="o">.</span><span class="n">summary</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">web_acl</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">web_acl</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">web_acl</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">web_acl</span><span class="o">.</span><span class="n">lock_token</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">web_acl</span><span class="o">.</span><span class="n">arn</span><span class="p">)</span>
+</code></pre>
+</div>
+</div>
+
+                        <input id="mod-mypydantic-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+
+                        <label class="view-source-button" for="mod-mypydantic-view-source"><span>View Source</span></label>
+
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a><span class="sd">&quot;&quot;&quot; </span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos">2</span></a><span class="sd">.. include:: ../README.md</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos">3</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span></pre></div>
 
 
             </section>
